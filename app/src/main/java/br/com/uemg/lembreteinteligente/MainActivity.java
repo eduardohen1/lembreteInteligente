@@ -1,5 +1,7 @@
 package br.com.uemg.lembreteinteligente;
 
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,8 +39,23 @@ public class MainActivity extends AppCompatActivity {
                 v -> {
                     //o trim() remove os espaços em branco do início e do fim da string
                     String mensagem = edtLembrete.getText().toString().trim();
-                    
-
+                    if(mensagem.isEmpty()){
+                        edtLembrete.setError("Digite um lembrete");
+                        edtLembrete.requestFocus();
+                        return; //mato a execução do metodo
+                    }
+                    //verifico se a permissão de notificação foi concedida
+                    if(Build.VERSION.SDK_INT >= 33 &&
+                        checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                                != PackageManager.PERMISSION_GRANTED){
+                        requestPermissions(
+                                new String[]{
+                                        android.Manifest.permission.POST_NOTIFICATIONS
+                                }, CODIGO_PERMISSAO
+                        );
+                        return; //mato a execução do metodo
+                    }
+                    enviarNotificacao(mensagem);
                 }
         );
 
