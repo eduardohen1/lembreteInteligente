@@ -1,7 +1,10 @@
 package br.com.uemg.lembreteinteligente;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -73,6 +76,34 @@ public class MainActivity extends AppCompatActivity {
                     getSystemService(NOTIFICATION_SERVICE);
             gerenciador.createNotificationChannel(canal);
         }
+    }
+
+    private void enviarNotificacao(String mensagem){
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
+        );
+        Notification.Builder builder;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            builder = new Notification.Builder(this, CANAL_ID);
+        } else {
+            builder = new Notification.Builder(this);
+            builder.setPriority(Notification.PRIORITY_DEFAULT);
+        }
+        Notification notification = builder
+                .setSmallIcon(android.R.drawable.ic_dialog_info)
+                .setContentTitle("Meu Lembrete")
+                .setContentText(mensagem)
+                .setStyle(
+                        new Notification.BigTextStyle().bigText(mensagem)
+                )
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+                .build();
+
     }
 
 }
