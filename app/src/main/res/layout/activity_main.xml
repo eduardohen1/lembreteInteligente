@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Digite uma mensagem para receber uma notificação"
+        android:layout_marginTop="16dp"
+        android:gravity="center" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ex.: Estudar Prog III"
+        android:inputType="textCapSentences"
+        android:layout_marginTop="24dp"
+        android:id="@+id/edtLembrete"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enviar Notificação"
+        android:layout_marginTop="20dp"
+        android:id="@+id/btnNotificar"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aguardando..."
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        android:id="@+id/txtStatus"/>
+
+</LinearLayout>
