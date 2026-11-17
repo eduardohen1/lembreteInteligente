@@ -1,5 +1,7 @@
 package br.com.uemg.lembreteinteligente;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -58,7 +60,19 @@ public class MainActivity extends AppCompatActivity {
                     enviarNotificacao(mensagem);
                 }
         );
-
-
     }
+
+    private void criarCanalNotificacao(){
+        //letra maiúscula O é a versão 26 do Android (Android 8.0)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel canal =
+                    new NotificationChannel(CANAL_ID, "Lembretes da aplicação",
+                            android.app.NotificationManager.IMPORTANCE_DEFAULT);
+            canal.setDescription("Avisos criados pelo Lembrete Inteligente");
+            NotificationManager gerenciador = (NotificationManager)
+                    getSystemService(NOTIFICATION_SERVICE);
+            gerenciador.createNotificationChannel(canal);
+        }
+    }
+
 }
