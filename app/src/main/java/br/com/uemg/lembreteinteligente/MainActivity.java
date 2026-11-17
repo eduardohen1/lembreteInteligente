@@ -24,12 +24,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        //configurar o parse entre XML e Java
+        edtLembrete = findViewById(R.id.edtLembrete);
+        btnNotificar = findViewById(R.id.btnNotificar);
+        txtStatus = findViewById(R.id.txtStatus);
+
+        criarCanalNotificacao();
+
+        btnNotificar.setOnClickListener(
+                v -> {
+                    //o trim() remove os espaços em branco do início e do fim da string
+                    String mensagem = edtLembrete.getText().toString().trim();
+                    
+
+                }
+        );
+
+
     }
 }
