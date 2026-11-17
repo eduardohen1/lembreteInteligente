@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -112,4 +113,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == CODIGO_PERMISSAO){
+            if(grantResults.length > 0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED
+            ){
+                String mensagem = edtLembrete.getText().toString().trim();
+                if(!mensagem.isEmpty()){
+                    enviarNotificacao(mensagem);
+                }
+            }else{
+                txtStatus.setText("Permissão de notificação negada");
+                Toast.makeText(this,
+                        "Permissão de notificação negada", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
