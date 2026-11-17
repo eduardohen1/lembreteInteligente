@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -103,6 +104,11 @@ public class MainActivity extends AppCompatActivity {
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .build();
+        NotificationManager gerenciador = (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+        gerenciador.notify(ID_NOTIFICACAO, notification);
+        txtStatus.setText("Notificação enviada: " + mensagem);
+        Toast.makeText(this, "Confira as notificações!", Toast.LENGTH_SHORT).show();
 
     }
 
